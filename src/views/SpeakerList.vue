@@ -48,6 +48,7 @@ import { onMounted, computed } from "vue";
 import { Speaker } from "@/store/modules/speakers";
 import { Session } from "@/store/modules/sessions";
 import c3 from 'c3'
+import { Chart } from 'chart.js';
 
 @Component
 export default class SpeakerList extends Vue {
