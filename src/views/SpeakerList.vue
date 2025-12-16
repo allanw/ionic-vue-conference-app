@@ -9,55 +9,19 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Speakers</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col
-            v-for="speaker in speakers"
-            :key="speaker.id"
-            size="12"
-            size-md="6"
-          >
-            <ion-card class="speaker-card">
-              <ion-card-header>
-                <ion-item
-                  :detail="false"
-                  lines="none"
-                  class="speaker-item"
-                  button
-                  @click="navigateToSpeaker(speaker.id)"
-                >
-                  <ion-avatar slot="start">
-                    <img
-                      :src="speaker.profilePic"
-                      :alt="speaker.name + ' profile picture'"
-                    />
-                  </ion-avatar>
-                  <ion-label>
-                    <h2>{{ speaker.name }}</h2>
-                    <p>{{ speaker.title }}</p>
-                  </ion-label>
-                </ion-item>
-              </ion-card-header>
-
-              <ion-card-content>
-                <ion-list lines="none">
-                  <ion-item
-                    v-for="session in sessionsBySpeaker(speaker.id)"
-                    :key="session.id"
-                    :detail="false"
-                    button
-                    @click="navigateToSession(session.id)"
-                  >
-                    <ion-label>
-                      <h3>{{ session.name }}</h3>
-                    </ion-label>
+    <ion-content class="outer-content">
+      <ion-list>
+        <ion-grid fixed>
+          <ion-row align-items-stretch>
+            <ion-col size="12" size-md="6" v-for="speaker in speakers" :key="speaker.id">
+              <ion-card class="speaker-card">
+                <ion-card-header>
+                  <ion-item detail="false" lines="none" button @click="goToSpeakerDetail(speaker)">
+                    <ion-avatar slot="start">
+                      <img v-bind:src="speaker.profilePic" alt="Speaker profile pic">
+                    </ion-avatar>
+                    <div id="chart"></div>
+                     {{speaker.name}}
                   </ion-item>
 
                   <ion-item
@@ -83,33 +47,31 @@
 import { onMounted, computed } from "vue";
 import { Speaker } from "@/store/modules/speakers";
 import { Session } from "@/store/modules/sessions";
-import { useStore } from "@/store";
-import { useRouter } from 'vue-router';
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonMenuButton,
-  IonContent,
-  IonList,
-  IonItem,
-  IonTitle,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonAvatar,
-} from "@ionic/vue";
+import c3 from 'c3'
 
-const router = useRouter();
-const store = useStore();
-const speakers = computed(() =>
-  store.state.speakers.speakers.concat().sort((a, b) => a.name.localeCompare(b.name))
-);
+@Component
+export default class SpeakerList extends Vue {
+  ionViewDidEnter() {
+    console.log("entered");
+    this.init();
+  }
+
+  init () {
+        console.log("YO");
+    var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+      columns: [
+        ['data1', 30, 200, 100, 400, 150, 250],
+        ['data2', 50, 20, 10, 40, 15, 25]
+      ]
+    }
+});
+  }
+
+  get speakers() {
+    return this.$store.state.speakers.speakers.concat().sort();
+  }
 
 const sessionsBySpeaker = (speakerId: number) => {
   return store.state.sessions.sessions.filter((session: Session) =>

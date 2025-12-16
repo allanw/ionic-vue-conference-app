@@ -14,35 +14,55 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@capacitor/app": "5.0.6",
-    "@capacitor/core": "5.4.0",
-    "@capacitor/haptics": "5.0.6",
-    "@capacitor/keyboard": "5.0.6",
-    "@capacitor/status-bar": "5.0.6",
-    "@ionic/storage": "^4.0.0",
-    "@ionic/vue": "^8.0.0",
-    "@ionic/vue-router": "^8.0.0",
-    "@types/leaflet": "^1.9.17",
-    "date-fns": "^2.30.0",
-    "ionicons": "^7.0.0",
-    "leaflet": "^1.9.4",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0",
-    "vuex": "^4.1.0"
+    "@auth0/auth0-spa-js": "^1.13.3",
+    "@capacitor/android": "^1.0.0-beta.8",
+    "@capacitor/cli": "^1.0.0-beta.8",
+    "@capacitor/core": "^1.0.0-beta.8",
+    "@capacitor/ios": "^1.0.0-beta.8",
+    "@ionic/core": "4.1.2",
+    "@ionic/vue": "0.0.4",
+    "auth0-js": "^9.14.0",
+    "axios": "^0.21.0",
+    "cache-loader": "^1.2.2",
+    "chart.js": "^2.9.4",
+    "date-fns": "^1.29.0",
+    "firebase": "^8.2.1",
+    "vue": "^3.0.0-rc.10",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "5.4.0",
-    "@vitejs/plugin-legacy": "^4.0.2",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "@vue/test-utils": "^2.3.0",
-    "cypress": "^12.7.0",
-    "eslint": "^8.35.0",
-    "eslint-plugin-vue": "^9.9.0",
-    "jsdom": "^22.1.0",
-    "typescript": "^5.1.6",
-    "vite": "^4.3.9",
-    "vitest": "^0.32.2",
-    "vue-tsc": "^1.0.24"
-  }
+    "@vue/cli-plugin-babel": "^3.0.4",
+    "@vue/cli-plugin-eslint": "^3.0.4",
+    "@vue/cli-plugin-typescript": "^3.0.4",
+    "@vue/cli-service": "^3.0.4",
+    "@vue/eslint-config-typescript": "^3.0.4",
+    "typescript": "^3.0.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "@vue/typescript"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "typescript-eslint-parser"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

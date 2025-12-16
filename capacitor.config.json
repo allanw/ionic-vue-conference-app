@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "heelo",
+  "appId": "com.runwithal.app",
+  "appName": "runwithal",
   "bundledWebRuntime": false,
   "webDir": "dist"
 }

@@ -1,205 +1,148 @@
 <template>
-  <ion-menu content-id="main-content">
-    <ion-content>
-      <ion-list lines="none">
-        <ion-list-header>
-          Conference
-        </ion-list-header>
-        <ion-menu-toggle :auto-hide="false" v-for="p in appPages" :key="p.title">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            :router-link="p.url"
-            :class="{ 'selected': isSelected(p.url) }"
-          >
-            <ion-icon slot="start" :icon="p.icon"></ion-icon>
-            <ion-label>
-              {{p.title}}
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-      <ion-list v-if="loggedIn" lines="none">
-        <ion-list-header>
-          Account
-        </ion-list-header>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            router-link="/account"
-            :class="{ 'selected': isSelected('/account') }"
-          >
-            <ion-icon slot="start" :icon="ionIcons.person"></ion-icon>
-            <ion-label>
-              Account
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            router-link="/support"
-            :class="{ 'selected': isSelected('/support') }"
-          >
-            <ion-icon slot="start" :icon="ionIcons.help"></ion-icon>
-            <ion-label>
-              Support
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item button :detail="false" @click="logout()">
-            <ion-icon slot="start" :icon="ionIcons.logOut"></ion-icon>
-            <ion-label>
-              Logout
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-      <ion-list v-if="!loggedIn" lines="none">
-        <ion-list-header>
-          Account
-        </ion-list-header>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            router-link="/login"
-            :class="{ 'selected': isSelected('/login') }"
-          >
-            <ion-icon slot="start" :icon="ionIcons.logIn"></ion-icon>
-            <ion-label>
-              Login
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            router-link="/support"
-            :class="{ 'selected': isSelected('/support') }"
-          >
-            <ion-icon slot="start" :icon="ionIcons.help"></ion-icon>
-            <ion-label>
-              Support
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item
-            button
-            :detail="false"
-            router-direction="root"
-            router-link="/signup"
-            :class="{ 'selected': isSelected('/signup') }"
-          >
-            <ion-icon slot="start" :icon="ionIcons.personAdd"></ion-icon>
-            <ion-label>
-              Signup
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-item>
-          <ion-icon slot="start" :icon="ionIcons.moonOutline"></ion-icon>
-            <ion-toggle v-model="localDark" label-placement="start">
-              Dark Mode
-            </ion-toggle>
-          </ion-item>
-      </ion-list>
-      <ion-list lines="none">
-        <ion-list-header>
-          Tutorial
-        </ion-list-header>
-        <ion-menu-toggle :auto-hide="false">
-          <ion-item button :detail="false" @click="openTutorial()">
-            <ion-icon slot="start" :icon="ionIcons.hammer"></ion-icon>
-            <ion-label>Show Tutorial</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
+<ion-menu contentId="menu-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+    <ion-list>
+      <ion-list-header>
+        Navigate
+      </ion-list-header>
+      <ion-menu-toggle auto-hide="false" v-for="p in appPages" :key="p.title">
+        <ion-item button @click="navigate(p.url)">
+          <ion-icon slot="start" :name="p.icon"></ion-icon>
+          <ion-label>
+            {{p.title}}
+          </ion-label>
+        </ion-item>
+
+      </ion-menu-toggle>
+    </ion-list>
+    <ion-list v-if="loggedIn">
+      <ion-list-header>
+        Account
+      </ion-list-header>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="navigate('/account')">
+          <ion-icon slot="start" name="person"></ion-icon>
+          <ion-label>
+            Account
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="navigate('/support')">
+          <ion-icon slot="start" name="help"></ion-icon>
+          <ion-label>
+            Support
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="logout()">
+          <ion-icon slot="start" name="log-out"></ion-icon>
+          <ion-label>
+            Logout
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+    </ion-list>
+
+    <ion-list v-if="!loggedIn">
+      <ion-list-header>
+        Account
+      </ion-list-header>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="login()">
+          <ion-icon slot="start" name="log-in"></ion-icon>
+          <ion-label>
+            Login
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="foo()">
+          <ion-icon slot="start" name="help"></ion-icon>
+          <ion-label>
+            Support
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="navigate('/signup')">
+          <ion-icon slot="start" name="person-add"></ion-icon>
+          <ion-label>
+            Signup
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        Tutorial
+      </ion-list-header>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item button @click="openTutorial()">
+          <ion-icon slot="start" name="hammer"></ion-icon>
+          <ion-label>Show Tutorial</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
-import { useStore } from '@/store';
-import { useRoute } from 'vue-router';
-import router from '@/router';
-import { Storage } from '@ionic/storage';
-import { menuController } from '@ionic/vue';
+import { Component, Vue } from 'vue-property-decorator';
+import useFirebaseAuth from "../hooks/firebase-auth";
+  @Component({
+  computed: {
+       loggedIn: function() {
+         return this.$store.state.user.isAuthenticated;
+       }
+     }
 
-import {
-  IonContent,
-  IonMenuButton,
-  IonButtons,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonTitle,
-  IonToolbar,
-  IonToggle,
-} from '@ionic/vue';
-import * as ionIcons from "ionicons/icons";
-import {
-  calendarOutline,
-  peopleOutline,
-  mapOutline,
-  informationCircleOutline
-} from "ionicons/icons";
+  })
 
-export default defineComponent({
-  name: 'Menu',
-  components: {
-    IonHeader,
-    IonContent,
-    IonMenuButton,
-    IonButtons,
-    IonIcon,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonListHeader,
-    IonMenu,
-    IonMenuToggle,
-    IonTitle,
-    IonToolbar,
-    IonToggle,
-  },
-  props: {
-    darkMode: Boolean,
-  },
-  emits: ['dark-mode-changed'],
-  setup(props, { emit }) {
-    const store = useStore();
-    const route = useRoute();
-    const localDark = ref(false);
-    const loggedIn = ref(false);
-    const storage = new Storage();
+  export default class Menu extends Vue  {
 
-    const isSelected = (path: string) => {
-      return route.path.startsWith(path);
-    };
+    appPages: [
+      {
+        title: 'Schedule',
+        url: '/tabs/schedule',
+        name: 'tabs.schedule',
+        icon: 'calendar'
+      },
+      {
+        title: 'Speakers',
+        url: '/tabs/speakers',
+        icon: 'contacts'
+      },
+      {
+        title: 'Map',
+        url: '/tabs/map',
+        icon: 'map'
+      },
+      {
+        title: 'About',
+        url: '/tabs/about',
+        icon: 'information-circle'
+      }
+    ];
 
-    watch(localDark, (newVal) => {
-      updateDarkMode(newVal);
-    });
-
-    const updateDarkMode = (newDarkValue: boolean) => {
-      emit('dark-mode-changed', newDarkValue);
+    navigate(url){
+      this.$router.push(url)
     }
 
     const isDarkMode = computed(() => store.getters.isDarkMode);
@@ -209,62 +152,11 @@ export default defineComponent({
       updateDarkMode(newDarkValue);
     }
 
-    const openTutorial = async () => {
-      await storage.create();
-      await storage.set('ion_did_tutorial', false);
-      await menuController.enable(false);
-      await router.push('/tutorial');
-    }
+  login() {
+    const { loginz } = useFirebaseAuth();
+    console.log("dudez");
+  }
 
-    const logout = () => {
-    }
-
-    onMounted(async () => {
-      await storage.create();
-    });
-
-    return {
-      localDark,
-      isDarkMode,
-      setLocalDarkMode,
-      openTutorial,
-      logout,
-      loggedIn,
-      updateDarkMode,
-      isSelected
-    };
-  },
-  data() {
-    return {
-      ionIcons,
-      calendarOutline,
-      peopleOutline,
-      mapOutline,
-      informationCircleOutline,
-      appPages: [
-        {
-          title: 'Schedule',
-          url: '/tabs/schedule',
-          name: 'tabs.schedule',
-          icon: calendarOutline
-        },
-        {
-          title: 'Speakers',
-          url: '/tabs/speakers',
-          icon: peopleOutline
-        },
-        {
-          title: 'Map',
-          url: '/tabs/map',
-          icon: mapOutline
-        },
-        {
-          title: 'About',
-          url: '/tabs/about',
-          icon: informationCircleOutline
-        }
-      ]
-    };
   }
 });
 </script>

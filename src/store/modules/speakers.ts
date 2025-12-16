@@ -48,36 +48,12 @@ const speakerStore: Module<SpeakerState, {}> = {
     }
   },
   actions: {
-    loadSpeakerData({ commit }) {
-      return fetch('/data/data.json')
-        .then(response => {
-          if (!response.ok) {
-            throw Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then(data => {
-          const speakers = data.speakers.map((speaker: any): Speaker => ({
-            id: parseInt(speaker.id),
-            name: speaker.name || '',
-            profilePic: speaker.profilePic,
-            twitter: speaker.twitter || '',
-            github: speaker.github || '',
-            instagram: speaker.instagram || '',
-            about: speaker.about || '',
-            title: speaker.title || '',
-            location: speaker.location || '',
-            email: speaker.email || '',
-            phone: speaker.phone || '',
-            sessions: speaker.sessions || []
-          }));
-          commit('updateSpeakers', speakers);
-          return speakers;
-        })
-        .catch(error => {
-          console.error('Error loading speaker data:', error);
-          throw error;
-        });
+    async loadSpeakerData({ commit }) {
+
+      const response = await fetch('https://runwith.ai/api/public')
+      const data = await response.json();
+      console.log(this.platform);
+      commit('updateSpeakers', data);
     }
   }
 };

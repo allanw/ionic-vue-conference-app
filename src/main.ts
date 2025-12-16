@@ -26,6 +26,10 @@ import './theme/variables.css';
 import './theme/custom.css';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
+// import { AuthService } from "../auth/service";
+import { domain, clientId, audience } from "../auth_config.json";
+
+Vue.config.productionTip = false;
 
 /**
  * Ionic Dark Mode
@@ -34,18 +38,9 @@ import '@ionic/core/css/ionic.bundle.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-// import "@ionic/vue/css/palettes/dark.always.css";
-// import "@ionic/vue/css/palettes/dark.system.css";
-import "@ionic/vue/css/palettes/dark.class.css";
 
-/* Leaflet CSS */
-import 'leaflet/dist/leaflet.css';
-
-const app = createApp(App)
-.use(IonicVue)
-.use(router)
-.use(store);
-
-router.isReady().then(() => {
-app.mount('#app');
-});
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app');
