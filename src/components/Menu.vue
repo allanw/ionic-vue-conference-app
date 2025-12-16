@@ -116,7 +116,9 @@ import useFirebaseAuth from "../hooks/firebase-auth";
   })
 
   export default class Menu extends Vue  {
-
+    ionViewDidEnter() {
+      console.log("VIEW ENTERED!!!!"); 
+    }
     appPages: [
       {
         title: 'Schedule',
