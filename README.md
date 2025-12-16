@@ -1,3 +1,7 @@
+# N.B. I had some local changes from Open Colleges Macbook Pro. Had some merge conflicts in the files I pushed as part of my 'changes' commit on 16th Dec 2025. May want to re-visit the versions of these files from the Ionic repo as I just ignored their changes and pushed my own older changes in order to save time. Just wanted to push my local changes to a repo.
+
+
+
 # Ionic Vue Conference App
 
 [![Built with Ionic](https://img.shields.io/badge/-Built%20with%20Ionic-3880FF?style=flat&logo=ionic&logoColor=white)](https://ionicframework.com)
