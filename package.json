@@ -6,6 +6,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "ionic:build": "vue-cli-service build",
+    "ionic:serve": "vue-cli-service serve",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
